@@ -1,0 +1,21 @@
+@import "./assets/stylesheets/reset.scss";
+@import "./assets/stylesheets/vars.scss";
+
+body {
+  font-family: var(--kingsoft-font);
+  font-size: 16px;
+  color: #333;
+}
+
+::webkit-scrollbar {
+  visibility: hidden;
+}
+
+.customTabs_tabs_nav {
+  justify-content: flex-start;
+  & > &_item {
+    flex-grow: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

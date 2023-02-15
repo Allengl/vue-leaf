@@ -1,0 +1,15 @@
+.text{
+  text-align: center;
+  font-size: 32px;
+}
+.link{
+  text-align: center;
+}
+
+.pig{
+  width: 256px;
+  height: 256px;
+  &_wrapper{
+    padding: 120px 0;
+  }
+}
