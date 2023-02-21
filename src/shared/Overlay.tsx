@@ -5,13 +5,20 @@ import { useMeStore } from '../stores/useMeStore'
 import { Icon } from './Icon'
 import s from './Overlay.module.scss'
 
+
+export type Active = 'home' | 'statistics' | 'export' | 'notify'
+
 export const Overlay = defineComponent({
   props: {
     onClose: {
       type: Function as PropType<() => void>,
     },
+    active: {
+      type: String as PropType<Active>,
+    },
   },
   setup: (props) => {
+    const { active } = props
     const meStore = useMeStore()
     const close = () => {
       props.onClose?.()
@@ -50,25 +57,25 @@ export const Overlay = defineComponent({
           <nav>
             <ul class={s.action_list}>
               <li>
-                <RouterLink to="/items" class={s.action}>
+                <RouterLink to="/items" class={active == 'home' ? s.action__active : s.action}>
                   <Icon name="home" class={s.icon} />
                   <span>记账页面</span>
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/statistics" class={s.action}>
+                <RouterLink to="/statistics" class={active == 'statistics' ? s.action__active : s.action}>
                   <Icon name="charts" class={s.icon} />
                   <span>统计图表</span>
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/export" class={s.action}>
+                <RouterLink to="/export" class={active == 'export' ? s.action__active : s.action}>
                   <Icon name="export" class={s.icon} />
                   <span>导出数据</span>
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/notify" class={s.action}>
+                <RouterLink to="/notify" class={active == 'notify' ? s.action__active : s.action}>
                   <Icon name="notify" class={s.icon} />
                   <span>记账提醒</span>
                 </RouterLink>
@@ -87,11 +94,28 @@ export const OverlayIcon = defineComponent({
     const onClickMenu = () => {
       refOverlayVisible.value = !refOverlayVisible.value
     }
+    // 根据 url 不同，显示不同的 active
+    const route = useRoute()
+    const active = ref<String>()
+
+    const routeTable: Record<string, string> = {
+      '/items': 'home',
+      '/statistics': 'statistics',
+      '/export': 'export',
+      '/notify': 'notify',
+    }
+
+    onMounted(() => {
+      active.value = routeTable[route.path]
+    })
+
     return () => (
       <>
         <Icon name="menu" class={s.icon} onClick={onClickMenu} />
         {refOverlayVisible.value && (
-          <Overlay onClose={() => (refOverlayVisible.value = false)} />
+          <Overlay
+            active={active.value as Active}
+            onClose={() => (refOverlayVisible.value = false)} />
         )}
       </>
     )
