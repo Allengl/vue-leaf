@@ -22,7 +22,11 @@ export const ComingSoon = defineComponent({
         </Center>
         <p class={s.text}>敬请期待</p>
         <p class={s.link} >
-          <Button onClick={onClick}>返回</Button>
+          <Button onClick={onClick}
+            style={{
+              width: '30%'
+            }}
+          >返回</Button>
         </p>
       </div>
     )
