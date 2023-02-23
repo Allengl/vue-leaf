@@ -27,7 +27,7 @@ export class Http {
   }
 }
 
-export const http = new Http(DEBUG ? 'api/v1' : 'http://106.14.66.155/api/v1')
+export const http = new Http(DEBUG ? 'api/v1' : 'http://106.14.66.155:3000/api/v1')
 
 http.instance.interceptors.request.use((config) => {
   const jwt = localStorage.getItem('jwt')
