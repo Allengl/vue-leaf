@@ -40,7 +40,7 @@ router.beforeEach((to, from) => {
   }
   return mePromise!.value!.then(
     () => true,
-    () => '/sign_in?return_to=' + from.path
+    () => '/sign_in?preview=yes&return_to=' + from.path
   )
 })
 
