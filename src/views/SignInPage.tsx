@@ -21,10 +21,19 @@ export const SignInPage = defineComponent({
       email: [],
       code: []
     })
+
+
+
+
     const refValidationCode = ref<any>()
     const { ref: refDisabled, toggle, on: disabled, off: enable } = useBool(false)
     const router = useRouter()
     const route = useRoute()
+    // 检查 url 上是否含有 preview=true 如果有则设置默认的邮箱和验证码
+    if (route.query.preview === 'yes') {
+      formData.email = 'guolong613@gmail.com'
+      formData.code = '123456'
+    }
     const onSubmit = async (e: Event) => {
       e.preventDefault()
       Object.assign(errors, {
@@ -36,7 +45,7 @@ export const SignInPage = defineComponent({
         { key: 'code', type: 'required', message: '必填' },
       ]))
       if (!hasError(errors)) {
-        const response = await http.post<{ jwt: string }>('/session', formData, {_autoLoading: true})
+        const response = await http.post<{ jwt: string }>('/session', formData, { _autoLoading: true })
           .catch(onError)
         localStorage.setItem('jwt', response.data.jwt)
         const returnTo = route.query.return_to?.toString()
@@ -54,7 +63,7 @@ export const SignInPage = defineComponent({
 
       disabled()
       await http
-        .post('/validation_codes', { email: formData.email } , {
+        .post('/validation_codes', { email: formData.email }, {
           _autoLoading: true
         })
         .catch(onError)
@@ -75,6 +84,7 @@ export const SignInPage = defineComponent({
                 <h1 class={s.appName}>叶子记账</h1>
               </div>
               <Form onSubmit={onSubmit}>
+              {route.query.preview === 'yes' && <div class={s.preview}>体验账号，可直接登录</div>}
                 <FormItem label="邮箱地址" type="text"
                   placeholder='请输入邮箱，然后点击发送验证码'
                   v-model={formData.email} error={errors.email?.[0]} />
