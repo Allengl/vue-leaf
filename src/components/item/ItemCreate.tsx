@@ -46,10 +46,10 @@ export const ItemCreate = defineComponent({
         { key: 'amount', type: 'notEqual', value: 0, message: '金额不能为零' },
         { key: 'happen_at', type: 'required', message: '时间必填' },
       ]))
-      if(hasError(errors)){
+      if (hasError(errors)) {
         Dialog.alert({
           title: '出错',
-          message: Object.values(errors).filter(i=>i.length>0).join('\n')
+          message: Object.values(errors).filter(i => i.length > 0).join('\n')
         })
         return
       }

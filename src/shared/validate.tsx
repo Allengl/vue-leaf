@@ -45,8 +45,9 @@ export const validate = <T extends FData>(formData: T, rules: Rules<T>) => {
   return errors
 }
 
-function isEmpty(value: null | undefined | string | number | FData) {
+function isEmpty(value: null | undefined | string | number | FData | []) {
   return value === null || value === undefined || value === ''
+    || (Array.isArray(value) && value.length === 0)
 }
 
 export function hasError(errors: Record<string, string[]>) {
