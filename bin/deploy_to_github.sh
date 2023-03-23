@@ -2,6 +2,7 @@
 rm -rf dist
 npm run build
 cd dist
+echo vue-leaf.deng.gl > CNAME
 git init
 git add .
 git commit -m deploy
