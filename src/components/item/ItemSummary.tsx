@@ -112,7 +112,7 @@ export const ItemSummary = defineComponent({
                 {itemStore.hasMore ? (
                   <Button onClick={() => itemStore.fetchNextPage(props.startDate, props.endDate)}>加载更多</Button>
                 ) : (
-                  <span>没有更多</span>
+                  <span>没有更多数据了</span>
                 )}
               </div>
             </>

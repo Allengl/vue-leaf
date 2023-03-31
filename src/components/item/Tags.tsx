@@ -77,7 +77,7 @@ export const Tags = defineComponent({
               加载更多
             </Button>
           ) : (
-            <span class={s.noMore}>没有更多</span>
+            <span class={s.noMore}>没有更多数据了</span>
           )}
         </div>
       </>
